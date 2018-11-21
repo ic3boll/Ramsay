@@ -1,2 +1,2 @@
-# WebProject
+# WebProject MVC CORE
 SoftUni homework
