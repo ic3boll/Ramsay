@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\c#\\ANC-MVC\\Project\\Ramsay\\Ramsay.Data\\Ramsay.Data.csproj",
+      "projectUniqueName": "D:\\c#\\ANC-MVC\\Project\\SoftUni\\Ramsay\\Ramsay.Data\\Ramsay.Data.csproj",
       "projectName": "Ramsay.Data",
-      "projectPath": "D:\\c#\\ANC-MVC\\Project\\Ramsay\\Ramsay.Data\\Ramsay.Data.csproj",
+      "projectPath": "D:\\c#\\ANC-MVC\\Project\\SoftUni\\Ramsay\\Ramsay.Data\\Ramsay.Data.csproj",
       "packagesPath": "C:\\Users\\Lyubomir\\.nuget\\packages\\",
-      "outputPath": "D:\\c#\\ANC-MVC\\Project\\Ramsay\\Ramsay.Data\\obj\\",
+      "outputPath": "D:\\c#\\ANC-MVC\\Project\\SoftUni\\Ramsay\\Ramsay.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
