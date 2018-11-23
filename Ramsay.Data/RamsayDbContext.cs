@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Ramsay.Model;
+using Ramsay.Models;
 
 namespace Ramsay.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class RamsayDbContext : IdentityDbContext<RamsayUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public RamsayDbContext(DbContextOptions<RamsayDbContext> options)
             : base(options)
         {
+
         }
+        public DbSet<Receipt> Receipts { get; set; }
+    
     }
 }

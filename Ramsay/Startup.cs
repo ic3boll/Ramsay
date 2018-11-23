@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Ramsay.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ramsay.Data;
+using Ramsay.Model;
+using Ramsay.Models;
 
 namespace Ramsay
 {
@@ -34,11 +31,19 @@ namespace Ramsay
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<RamsayDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+             services.AddDefaultIdentity<RamsayUser>(IdentityOptions =>
+            {
+                IdentityOptions.Password.RequireDigit = false;
+                IdentityOptions.Password.RequiredUniqueChars = 0;
+                IdentityOptions.Password.RequireLowercase = false;
+                IdentityOptions.Password.RequireNonAlphanumeric = false;
+                IdentityOptions.Password.RequireUppercase = false;
+            })
+            .AddEntityFrameworkStores<RamsayDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

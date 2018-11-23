@@ -4,12 +4,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Ramsay.Data;
 using Ramsay.Models;
 
 namespace Ramsay.Controllers
 {
     public class HomeController : Controller
     {
+
+        private RamsayDbContext context;
+
+
+        public HomeController(RamsayDbContext dbContext)
+        {
+            this.context = dbContext;
+        }
+
+
         public IActionResult Index()
         {
             return View();

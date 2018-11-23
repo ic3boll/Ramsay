@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Identity
+@using Ramsay.Models
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<RamsayUser> SignInManager
+@inject UserManager<RamsayUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
