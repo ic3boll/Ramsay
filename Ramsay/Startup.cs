@@ -41,6 +41,7 @@ namespace Ramsay
                 IdentityOptions.Password.RequireLowercase = false;
                 IdentityOptions.Password.RequireNonAlphanumeric = false;
                 IdentityOptions.Password.RequireUppercase = false;
+                IdentityOptions.Password.RequiredLength = 3;
             })
             .AddEntityFrameworkStores<RamsayDbContext>()
             .AddDefaultTokenProviders();

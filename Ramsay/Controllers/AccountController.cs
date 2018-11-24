@@ -17,6 +17,7 @@ namespace Ramsay.Controllers
     public class AccountController : Controller
     {
         private SignInManager<RamsayUser> SignIn;
+       
 
         public AccountController(SignInManager<RamsayUser> signIn)
         {
@@ -37,11 +38,29 @@ namespace Ramsay.Controllers
             return this.View();
         }
         [HttpPost]
-        public IActionResult Login()
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var returnUrl = this.TempData["ReturnUrl"]?.ToString();
-            return this.Redirect(returnUrl);
-        }
+            if (ModelState.IsValid)
+            {
+                var result = await SignIn.PasswordSignInAsync(model.Username,
+                   model.Password, model.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            ModelState.AddModelError("", "Invalid login attempt");
+            return View(model);
+        } 
+        
         public IActionResult Register()
         {
             return this.View();

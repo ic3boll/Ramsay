@@ -9,7 +9,6 @@ namespace Ramsay.ViewModels.Account
     public class LoginViewModel
     {
         [Required]
-
         [Display(Name = "Username")]
         public string Username { get; set; }
 
@@ -19,5 +18,6 @@ namespace Ramsay.ViewModels.Account
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }
