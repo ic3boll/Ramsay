@@ -10,6 +10,7 @@ using Ramsay.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Ramsay.ViewModels.Account;
+using Microsoft.Extensions.Logging;
 
 namespace Ramsay.Controllers
 {
@@ -17,7 +18,8 @@ namespace Ramsay.Controllers
     public class AccountController : Controller
     {
         private SignInManager<RamsayUser> SignIn;
-       
+        private readonly ILogger<RamsayUser> logger;
+
 
         public AccountController(SignInManager<RamsayUser> signIn)
         {
@@ -79,6 +81,20 @@ namespace Ramsay.Controllers
                 return this.RedirectToAction("Login", "Account");
             }
             return this.View();
+        }
+
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            await this.SignIn.SignOutAsync();
+           
+            if (returnUrl != null)
+            {
+                return this.RedirectToAction("Logout", "Account");
+            }
+            else
+            {
+                return this.View();
+            }
         }
 
     }
