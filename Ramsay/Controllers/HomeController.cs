@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ramsay.Data;
 using Ramsay.Models;
@@ -23,6 +20,7 @@ namespace Ramsay.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

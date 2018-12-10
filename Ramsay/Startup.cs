@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ramsay.Data;
-using Ramsay.Model;
 using Ramsay.Models;
+using System;
+using Ramsay.Middlewares;
+using Ramsay.Middlewares.MiddlewareExtensions;
 
 namespace Ramsay
 {
@@ -34,23 +36,26 @@ namespace Ramsay
             services.AddDbContext<RamsayDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-             services.AddDefaultIdentity<RamsayUser>(IdentityOptions =>
-            {
-                IdentityOptions.Password.RequireDigit = false;
-                IdentityOptions.Password.RequiredUniqueChars = 0;
-                IdentityOptions.Password.RequireLowercase = false;
-                IdentityOptions.Password.RequireNonAlphanumeric = false;
-                IdentityOptions.Password.RequireUppercase = false;
-                IdentityOptions.Password.RequiredLength = 3;
-            })
-            .AddEntityFrameworkStores<RamsayDbContext>()
-            .AddDefaultTokenProviders();
+            services.AddIdentity<RamsayUser, IdentityRole>(opt =>
+                 {
+                     opt.SignIn.RequireConfirmedEmail = false;
+                     opt.Password.RequireLowercase = false;
+                     opt.Password.RequireUppercase = false;
+                     opt.Password.RequireNonAlphanumeric = false;
+                     opt.Password.RequireDigit = false;
+                     opt.Password.RequiredUniqueChars = 0;
+                     opt.Password.RequiredLength = 3;
+
+                 })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<RamsayDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app,
+            IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -62,18 +67,24 @@ namespace Ramsay
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseDataMiddleware();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+              name: "areas",
+              template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
+
+                routes.MapRoute(
+                  name: "default",
+                  template: "{controller=Home}/{action=Index}/{id?}");
+
+           
             });
         }
     }

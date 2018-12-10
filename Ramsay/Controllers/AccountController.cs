@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ramsay.Models;
-using Ramsay.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Ramsay.ViewModels.Account;
@@ -75,6 +70,7 @@ namespace Ramsay.Controllers
                 Email = model.Email,
                 UserName = model.UserName
             };
+
             var result = this.SignIn.UserManager.CreateAsync(user, model.Password).Result;
             if(result.Succeeded)
             {

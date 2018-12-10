@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Ramsay.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,13 @@ namespace Ramsay.Controllers
 {
     public class UserController : Controller
     {
-        public UserController()
-        {
 
+ 
+
+
+        public IActionResult User()
+        {
+            return View();
         }
     }
 }
