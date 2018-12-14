@@ -13,7 +13,7 @@ namespace Ramsay.Controllers
     public class AccountController : Controller
     {
         private SignInManager<RamsayUser> SignIn;
-        private readonly ILogger<RamsayUser> logger;
+      
 
 
         public AccountController(SignInManager<RamsayUser> signIn)
@@ -68,7 +68,9 @@ namespace Ramsay.Controllers
             var user = new RamsayUser()
             {
                 Email = model.Email,
-                UserName = model.UserName
+                UserName = model.UserName,
+                Nickname=model.Nickname
+                
             };
 
             var result = this.SignIn.UserManager.CreateAsync(user, model.Password).Result;

@@ -33,9 +33,11 @@ namespace Ramsay
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<RamsayDbContext>(options =>
+            services.AddDbContext<RamsayDbContext>(
+                options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<RamsayUser, IdentityRole>(opt =>
                  {
                      opt.SignIn.RequireConfirmedEmail = false;
@@ -47,10 +49,12 @@ namespace Ramsay
                      opt.Password.RequiredLength = 3;
 
                  })
+                 
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<RamsayDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

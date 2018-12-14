@@ -5,7 +5,7 @@ using System;
 
 namespace Ramsay.Model
 {
-    public class Receipt 
+    public class Receipt
     {
         public int Id { get; set; }
 
@@ -20,6 +20,8 @@ namespace Ramsay.Model
         public string Description { get; set; }
 
         public string Image { get; set; }
+
+        public string UserId { get; set; }
 
         public RamsayUser User { get; set; }
 

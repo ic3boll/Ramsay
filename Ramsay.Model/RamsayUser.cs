@@ -6,7 +6,8 @@ namespace Ramsay.Models
 {
     public class RamsayUser : IdentityUser
     {
-        
+
+        public string Nickname { get; set; }
 
     }
 }

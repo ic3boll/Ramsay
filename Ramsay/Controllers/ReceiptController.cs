@@ -2,33 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Ramsay.Data;
 using Ramsay.Model;
+using Ramsay.Models;
+using Ramsay.ViewModels.Account;
 using Ramsay.ViewModels.Receipt;
 
 namespace Ramsay.Controllers
 {
     public class ReceiptController : Controller
     {
+
+        private readonly UserManager<RamsayUser> _userManager;
+        private readonly RamsayDbContext _dbContext;
+
+    
+        public ReceiptController(UserManager<RamsayUser> userManager,
+            RamsayDbContext dbContext)
+        {
+            _userManager = userManager;
+            _dbContext = dbContext;
+        }
+
         public IActionResult Receipt()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Receipt(ReceiptViewModel receipt)
+        public async Task<IActionResult> Receipt(ReceiptViewModel receiptViewModel)
         {
-            var receipts = new Receipt()
+            var user = await _userManager.GetUserAsync(User);
+            var receipt = new Receipt()
             {
-                Name = receipt.Name,
-                Category = receipt.Category,
-                Ingredients = receipt.Ingredients,
-                Preparation = receipt.Preparation,
-                Description = receipt.Description,
+                Name = receiptViewModel.Name,
+                Category = receiptViewModel.Category,
+                Ingredients = receiptViewModel.Ingredients,
+                Preparation = receiptViewModel.Preparation,
+                Description = receiptViewModel.Description,
+                User = user
+            
             };
-            if (receipt == null)
-            {
-                return this.View();
-            }
+
+            _dbContext.Add(receipt);
+            _dbContext.SaveChanges();
+
             return this.RedirectToAction("User", "User");
         }
     }
