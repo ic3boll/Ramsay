@@ -21,11 +21,13 @@ namespace Ramsay.Controllers
             this.SignIn = signIn;
         }
 
-        public IActionResult Login(string returnUrl = null)
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
-
             var returnUrlParsed = returnUrl ?? Url.Content("~/");
-
+            if (SignIn.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             // Clear the existing external cookie to ensure a clean login process
             HttpContext.SignOutAsync(IdentityConstants.ExternalScheme).GetAwaiter().GetResult();
 
@@ -71,6 +73,7 @@ namespace Ramsay.Controllers
                 UserName = model.UserName,
                 Nickname=model.Nickname
                 
+                
             };
 
             var result = this.SignIn.UserManager.CreateAsync(user, model.Password).Result;
@@ -91,7 +94,7 @@ namespace Ramsay.Controllers
             }
             else
             {
-                return this.View();
+                return this.RedirectToAction("Login", "Account");
             }
         }
 

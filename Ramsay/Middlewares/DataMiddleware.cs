@@ -11,6 +11,7 @@ namespace Ramsay.Middlewares
 {
     public class DataMiddleware
     {
+        
         private readonly RequestDelegate next;
       
         public DataMiddleware(RequestDelegate next)

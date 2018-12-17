@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Ramsay.Model;
+
 using Ramsay.Models;
 
 namespace Ramsay.Data
@@ -16,6 +17,7 @@ namespace Ramsay.Data
         }
         
         public DbSet<Receipt> Receipts { get; set; }
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

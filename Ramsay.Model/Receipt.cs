@@ -3,7 +3,7 @@ using Ramsay.Models;
 using Ramsay.Models.Enums;
 using System;
 
-namespace Ramsay.Model
+namespace Ramsay.Models
 {
     public class Receipt
     {

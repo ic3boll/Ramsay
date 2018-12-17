@@ -1,8 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ramsay.Data;
 using Ramsay.Models;
+using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+using Ramsay.ViewModels;
+using Ramsay.ViewModels.Receipt;
 
 namespace Ramsay.Controllers
 {
@@ -11,16 +16,32 @@ namespace Ramsay.Controllers
 
         private RamsayDbContext context;
 
+        private readonly RamsayReceiptServices _receiptsService;
+        private readonly IMapper _mapper;
 
-        public HomeController(RamsayDbContext dbContext)
+
+        public HomeController(RamsayDbContext dbContext,
+            RamsayReceiptServices receiptServices,
+            IMapper mapper)
         {
+            this._mapper = mapper;
+            this._receiptsService = receiptServices;
             this.context = dbContext;
         }
 
 
         public IActionResult Index()
         {
+            var receipts = this._receiptsService.allReceipts();
+            var viewModel = new List<ReceiptViewModel>();
 
+            foreach (var item in receipts)
+            {
+                var receiptViewModel = this._mapper.Map<ReceiptViewModel>(item);
+                viewModel.Add(receiptViewModel);
+            }
+
+            return View(viewModel);
             return View();
         }
 

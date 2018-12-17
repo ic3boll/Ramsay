@@ -9,20 +9,15 @@ namespace Ramsay.ViewModels.Receipt
 {
     public class ReceiptViewModel
     {
-        [Required]
-        [Display(Name = "Name")]
+
         public string Name { get; set; }
-        [Required]
-        [Display(Name = "Category: ")]
+        
         public ReceiptCategory Category { get; set; }
-        [Required]
-        [Display(Name = "Ingredients")]
+  
         public string Ingredients { get; set; }
-        [Required]
-        [Display(Name = "Preparation")]
+
         public string Preparation { get; set; }
-        [Required]
-        [Display(Name = "Description")]
+
         public string Description { get; set; }
 
         public string Image { get; set; }

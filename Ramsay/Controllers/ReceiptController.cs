@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Ramsay.Data;
-using Ramsay.Model;
+
 using Ramsay.Models;
-using Ramsay.ViewModels.Account;
 using Ramsay.ViewModels.Receipt;
 
 namespace Ramsay.Controllers
 {
     public class ReceiptController : Controller
     {
-
+       
         private readonly UserManager<RamsayUser> _userManager;
         private readonly RamsayDbContext _dbContext;
 
     
         public ReceiptController(UserManager<RamsayUser> userManager,
-            RamsayDbContext dbContext)
+            RamsayDbContext dbContext   )
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            
         }
 
         public IActionResult Receipt()

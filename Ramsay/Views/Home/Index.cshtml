@@ -1,6 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Ramsay.ViewModels
+@using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+@model IEnumerable<Ramsay.ViewModels.Receipt.ReceiptViewModel>
+
+@{
+    ViewData["Title"] = "User";
 }
+<ul>
+
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <label>Name: </label>
+            <h4>@item.Name</h4>
+        </div>
+    }
 
 
-<h1>Some Info</h1>
+
+
+</ul>>

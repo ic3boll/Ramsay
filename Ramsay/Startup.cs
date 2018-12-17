@@ -11,6 +11,9 @@ using Ramsay.Models;
 using System;
 using Ramsay.Middlewares;
 using Ramsay.Middlewares.MiddlewareExtensions;
+using Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts;
+using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+using AutoMapper;
 
 namespace Ramsay
 {
@@ -52,8 +55,10 @@ namespace Ramsay
                  
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<RamsayDbContext>();
-
+            services.AddScoped<RamsayReceiptServices>();
+            services.AddTransient<RamsayReceiptServices>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper();
             
         }
 

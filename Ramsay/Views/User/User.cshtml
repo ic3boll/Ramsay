@@ -1,5 +1,21 @@
-﻿@model Ramsay.ViewModels.Receipt.ReceiptViewModel
+﻿@using Ramsay.ViewModels
+@using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+@model IEnumerable<Ramsay.ViewModels.Receipt.ReceiptViewModel>
+
 @{
     ViewData["Title"] = "User";
 }
-<h1>asd</h1>
+<ul>
+
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <label>Name: </label>
+                <h4>@item.Name</h4>
+            </div>
+        }
+    
+
+
+
+</ul>

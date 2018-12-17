@@ -1,23 +1,44 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Ramsay.Models;
+using Ramsay.Data;
+using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+using Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts;
 using Ramsay.ViewModels.Receipt;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ramsay.Controllers
 {
     public class UserController : Controller
     {
+        
+        private readonly RamsayReceiptServices _receiptsService;
+        private readonly IMapper _mapper;
+       
 
- 
 
-
-        public IActionResult User(ReceiptViewModel receiptViewModel)
+        public UserController(
+            IMapper mapper,
+            RamsayReceiptServices receiptsService)
         {
-            return View();
+            this._mapper = mapper;
+           this._receiptsService = receiptsService;
+           
+        }
+
+
+        public IActionResult User()
+        {
+            var receipts = this._receiptsService.allReceipts();
+            var viewModel = new List<ReceiptViewModel>();
+
+            foreach (var item in receipts)
+            {
+                var receiptViewModel = this._mapper.Map<ReceiptViewModel>(item);
+                viewModel.Add(receiptViewModel);
+            }
+
+            return View(viewModel);
         }
     }
 }
