@@ -25,6 +25,5 @@ namespace Ramsay.Models
 
         public RamsayUser User { get; set; }
 
-
     }
 }

@@ -11,12 +11,12 @@ namespace Ramsay.Middlewares
 {
     public class DataMiddleware
     {
-        
+
         private readonly RequestDelegate next;
-      
+
         public DataMiddleware(RequestDelegate next)
         {
-             this.next = next;
+            this.next = next;
         }
 
         public async Task InvokeAsync(
@@ -31,6 +31,7 @@ namespace Ramsay.Middlewares
             }
 
             await this.next(context);
+
         }
 
         private async Task SeedRoles(
@@ -38,7 +39,7 @@ namespace Ramsay.Middlewares
              RoleManager<IdentityRole> roleManager)
         {
             var result = await roleManager.CreateAsync(new IdentityRole("Administrator"));
-            if (result.Succeeded && usermanager.Users.Any())
+            if (usermanager.Users.Any())
             {
                 var firstUser = usermanager.Users.FirstOrDefault();
                 await usermanager.AddToRoleAsync(firstUser, "Administrator");

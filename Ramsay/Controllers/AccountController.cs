@@ -5,7 +5,6 @@ using Ramsay.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Ramsay.ViewModels.Account;
-using Microsoft.Extensions.Logging;
 
 namespace Ramsay.Controllers
 {
@@ -20,7 +19,7 @@ namespace Ramsay.Controllers
         {
             this.SignIn = signIn;
         }
-
+        [Route("Login")]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             var returnUrlParsed = returnUrl ?? Url.Content("~/");
@@ -37,6 +36,7 @@ namespace Ramsay.Controllers
             return this.View();
         }
         [HttpPost]
+        [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -58,12 +58,13 @@ namespace Ramsay.Controllers
             }
             ModelState.AddModelError("", "Invalid login attempt");
             return View(model);
-        } 
-        
+        }
+        [Route("Register")]
         public IActionResult Register()
         {
             return this.View();
         }
+       
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
@@ -83,7 +84,7 @@ namespace Ramsay.Controllers
             }
             return this.View();
         }
-
+        [Route("Logout")]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await this.SignIn.SignOutAsync();

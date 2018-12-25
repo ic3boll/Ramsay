@@ -1,0 +1,28 @@
+﻿@using Ramsay.ViewModels
+@using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+@model IEnumerable<Ramsay.ViewModels.Receipt.ReceiptViewModel>
+
+@{
+    ViewData["Title"] = "User";
+}
+<form asp-action="User">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Name: </label>
+                    <h4>@item.Name</h4>
+                    
+                    <td>
+                        <a href="@Url.Action("Details", "ReceiptMannager", new { name=item.Name})">Add an Admin</a> <br />
+                        <a asp-controller="ReceiptMannager" asp-action="Edit" asp-route-username="@item.Name">Edit</a> |
+                        <a asp-controller="ReceiptMannager" asp-action="Details" asp-route-name="@item.Name">Details</a> |
+                        <a asp-controller="ReceiptMannager" asp-action="Delete" method="post" asp-route-username="@item.Name">Delete</a>
+                    </td>
+                </div>
+            </div>
+        }
+    </ul>
+</form>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))

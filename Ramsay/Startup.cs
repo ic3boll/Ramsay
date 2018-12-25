@@ -8,12 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ramsay.Data;
 using Ramsay.Models;
-using System;
-using Ramsay.Middlewares;
 using Ramsay.Middlewares.MiddlewareExtensions;
-using Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
 using AutoMapper;
+using Ramsay.Services.Ramsay.Services.Ramsay.UserRole;
 
 namespace Ramsay
 {
@@ -56,6 +54,7 @@ namespace Ramsay
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<RamsayDbContext>();
             services.AddScoped<RamsayReceiptServices>();
+            services.AddScoped<RamsayUserRoles>();
             services.AddTransient<RamsayReceiptServices>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
@@ -84,16 +83,18 @@ namespace Ramsay
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-              name: "areas",
-              template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-          );
+
+             //   routes.MapRoute(
+             //       name: "username",
+             //       template: "{controller=ReceiptMannager}/{action}/{string}"
+             //   );
 
                 routes.MapRoute(
                   name: "default",
-                  template: "{controller=Home}/{action=Index}/{id?}");
+                  template: "{controller=Home}/{action=Index}/{string?}/{id?}");
 
-           
+       
+
             });
         }
     }

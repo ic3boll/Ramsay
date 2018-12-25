@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Ramsay.Data;
 using Ramsay.Models;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
-using Ramsay.ViewModels;
 using Ramsay.ViewModels.Receipt;
-
+using X.PagedList;
 namespace Ramsay.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 
@@ -29,8 +29,8 @@ namespace Ramsay.Controllers
             this.context = dbContext;
         }
 
-
-        public IActionResult Index()
+     
+        public IActionResult Index(int? page)
         {
             var receipts = this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptViewModel>();
@@ -40,9 +40,13 @@ namespace Ramsay.Controllers
                 var receiptViewModel = this._mapper.Map<ReceiptViewModel>(item);
                 viewModel.Add(receiptViewModel);
             }
+            var nextPage = page ?? 1;
+            var pagedViewModels = viewModel.ToPagedList(nextPage,4);
 
-            return View(viewModel);
-            return View();
+           
+            return View(pagedViewModels);
+       
+
         }
 
         public IActionResult About()

@@ -1,0 +1,37 @@
+﻿@using Ramsay.ViewModels
+@using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IEnumerable<Ramsay.ViewModels.Receipt.ReceiptViewModel>
+@{
+    ViewData["Title"] = "BreakFast";
+}
+<h1>Lunch: </h1>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        if (item.Description == "Lunch")
+        {
+            <div class="row">
+                <div class="col-md-4">
+
+                    <label>Name: </label>
+                    <h4>@item.Name</h4>
+                    <h5> @item.Description</h5>
+                    <td>
+
+                        <a>Details</a> (. Y .)
+
+                    </td>
+                    <hr />
+                </div>
+            </div>
+        }
+        else
+        {
+
+        }
+    }
+</ul>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
