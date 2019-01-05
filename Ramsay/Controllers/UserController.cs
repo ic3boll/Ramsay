@@ -38,14 +38,17 @@ namespace Ramsay.Controllers
         public async Task<IActionResult> Userr(int? page)
         {
             var receipts = this._receiptsService.allReceipts();
+           
+            var viewModel = new List<ReceiptEditViewModel>();
 
-            var viewModel = new List<ReceiptViewModel>();
             var userId = _SignIn.UserManager.GetUserId(User);
+
+           
             foreach (var item in receipts)
             {
                 if (item.UserId == userId)
                 {
-                    var receiptViewModel = this._mapper.Map<ReceiptViewModel>(item);
+                    var receiptViewModel = this._mapper.Map<ReceiptEditViewModel>(item);
                     viewModel.Add(receiptViewModel);
                 }
             }

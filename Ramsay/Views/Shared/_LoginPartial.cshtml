@@ -10,10 +10,13 @@
 {
     @if (User.IsInRole("Administrator"))
     {
-        <form asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")"  method="post" id="logoutForm" class="navbar-right">asd
-            <ul class="nav navbar-nav navbar-right">
+
+    <form asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" class="navbar-right">
+        <ul class="nav navbar-nav">
+            
+
                 <li>
-                    <a asp-controller="User" asp-action="Userr" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                    <a asp-controller="User" asp-action="Userr" title="Manage" class="dropdown-item">Hello @UserManager.GetUserName(User)!</a>
                 </li>
                 <li>
                     <a asp-controller="Receipt" asp-action="Receipt">Create</a>
@@ -24,12 +27,15 @@
                 <li>
                     <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
                 </li>
-            </ul>
-        </form>
+          
+        </ul>
+
+    </form>
+
     }
     else
     {
-        <form asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post" id="logoutForm" class="navbar-right">
+        <form asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" class="navbar-right">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a asp-controller="User" asp-action="Userr" title="Manage">Hello @UserManager.GetUserName(User)!</a>

@@ -3,7 +3,7 @@ using Ramsay.Data;
 using Ramsay.Models;
 using Ramsay.Services.Ramsay.Services.Ramsay.UserRole.Contracts;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole
 {
@@ -26,7 +26,6 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole
 
 
         }
-        // return this.All().OrderBy(n=>n.Name).Where(n=>n.Id ==_data.UserById._data)
 
         public IQueryable<IdentityRole> allRoles() => this._roleManager.Roles;
 
@@ -34,15 +33,6 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole
         {
             return this.allRoles().OrderBy(id => id.Id);
         }
-
-
-        //   public IQueryable<RamsayUser> allUsers() => this._userManager.Users;
-        //
-        //   public IQueryable<RamsayUser> UserById()
-        //   {
-        //       return this.allUsers().OrderBy(id => id.Id);
-        //   }
-
 
     }
 }

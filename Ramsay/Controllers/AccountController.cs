@@ -66,7 +66,7 @@ namespace Ramsay.Controllers
         }
        
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             var user = new RamsayUser()
             {

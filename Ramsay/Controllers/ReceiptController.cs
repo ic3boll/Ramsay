@@ -41,7 +41,7 @@ namespace Ramsay.Controllers
         }
 
         [HttpPost]
-        //Proba
+        //Create Receipts
         public async Task<IActionResult> Receipt(ReceiptViewModel receiptViewModel)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -69,7 +69,7 @@ namespace Ramsay.Controllers
                     };
                     _dbContext.Add(receipt);
                     _dbContext.SaveChanges();
-                    return this.RedirectToAction("Home", "Index");
+                    return this.RedirectToAction("Userr", "User");
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace Ramsay.Controllers
                     _dbContext.SaveChanges();
                 }
 
-                return this.RedirectToAction("User", "Userr");
+                return this.RedirectToAction("Userr", "User");
             }
         }
     }

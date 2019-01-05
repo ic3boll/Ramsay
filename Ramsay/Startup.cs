@@ -84,14 +84,17 @@ namespace Ramsay
             app.UseMvc(routes =>
             {
 
-             //   routes.MapRoute(
-             //       name: "username",
-             //       template: "{controller=ReceiptMannager}/{action}/{string}"
-             //   );
+                //   routes.MapRoute(
+                //       name: "username",
+                //       template: "{controller=ReceiptMannager}/{action}/{string}"
+                //   );
+                routes.MapRoute(
+                   name: "name",
+                   template: "{controller=Home}/{action=Index}/{string?}");
 
                 routes.MapRoute(
                   name: "default",
-                  template: "{controller=Home}/{action=Index}/{string?}/{id?}");
+                  template: "{controller=Home}/{action=Index}/{id?}");
 
        
 

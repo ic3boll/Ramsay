@@ -2,14 +2,19 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<h1>Receipt: </h1>
 <ul>
-    <div class="row">
-        <div class="col-md-4">
-            <label>Name: </label>
-            <h4>@ViewData["Name"]</h4>
-            </td>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Name: @item.Name</h4>
+                <h5>Description: @item.Description</h5>
+                <h5>Ingredients: @item.Ingredients</h5>
+                <h5>Preparation: @item.Preparation</h5>
+                <h5>Description: @item.Description</h5>
+                        
+            </div>
         </div>
-    </div>
+    }
 </ul>
-

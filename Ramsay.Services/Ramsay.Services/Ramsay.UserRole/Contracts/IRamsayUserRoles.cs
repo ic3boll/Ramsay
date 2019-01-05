@@ -10,7 +10,7 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole.Contracts
 {
    public interface IRamsayUserRoles
     {
-         IQueryable<IdentityRole> allRoles();
+            IQueryable<IdentityRole> allRoles();
 
         IQueryable<IdentityRole> roleById();
 
