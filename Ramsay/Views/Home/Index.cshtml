@@ -3,28 +3,23 @@
 @using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
 @using X.PagedList
 @using X.PagedList.Mvc.Core
-@model IEnumerable<Ramsay.ViewModels.Receipt.ReceiptViewModel>
+@model IEnumerable<Ramsay.ViewModels.Receipt.ReceiptEditViewModel>
 @{
     ViewData["Title"] = "User";
 }
+ 
 <h1>Receipts: </h1>
-<ul>
-    @foreach (var item in Model)
-    {
-        <div class="row">
-            <div class="col-md-4">
-
-                <label>Name: </label>
-                <h4>@item.Name</h4>
-                <h5> @item.Description</h5>
-                <td>
-
-                    <a asp-controller="ReceiptMannager" asp-action="Details" asp-route-name="@item.Name">Details</a> 
-
-                </td>
-                <hr />
-            </div>
-        </div>
-    }
-</ul>
+<div class="row">
+        @foreach (var item in Model)
+        {
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="@item.Image" alt="...">
+                            <label>Name: @item.Name</label>
+                            <br />
+                                <a asp-controller="ReceiptMannager" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+        }
+</div>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))

@@ -12,6 +12,7 @@ using Ramsay.Middlewares.MiddlewareExtensions;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
 using AutoMapper;
 using Ramsay.Services.Ramsay.Services.Ramsay.UserRole;
+using Ramsay.Services;
 
 namespace Ramsay
 {
@@ -54,6 +55,7 @@ namespace Ramsay
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<RamsayDbContext>();
             services.AddScoped<RamsayReceiptServices>();
+            services.AddScoped<IImageUploader,ImageUploader>();
             services.AddScoped<RamsayUserRoles>();
             services.AddTransient<RamsayReceiptServices>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

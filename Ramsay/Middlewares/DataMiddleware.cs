@@ -5,6 +5,7 @@ using Ramsay.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ramsay.Middlewares
@@ -13,10 +14,14 @@ namespace Ramsay.Middlewares
     {
 
         private readonly RequestDelegate next;
+  
+    
 
-        public DataMiddleware(RequestDelegate next)
+        public DataMiddleware(RequestDelegate next
+          )
         {
             this.next = next;
+         
         }
 
         public async Task InvokeAsync(
@@ -25,7 +30,7 @@ namespace Ramsay.Middlewares
             UserManager<RamsayUser> usermanager,
             RoleManager<IdentityRole> roleManager)
         {
-            if (!dbContext.Roles.Any())
+            if (!dbContext.Roles.Any() && usermanager.Users.Any())
             {
                 await this.SeedRoles(usermanager, roleManager);
             }

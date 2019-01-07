@@ -1,4 +1,5 @@
 ﻿using Ramsay.Models;
+using Ramsay.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts
     interface IRamsayReceiptsServices
     {
          IQueryable<Receipt> All();
+
+     
 
          IQueryable<Receipt> allReceipts();
 

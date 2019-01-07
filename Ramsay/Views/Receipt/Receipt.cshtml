@@ -1,4 +1,4 @@
-﻿@model Ramsay.ViewModels.Receipt.ReceiptViewModel
+﻿@model Ramsay.ViewModels.ReceiptBindingModel
 @using Ramsay.Models.Enums
 @{
     ViewData["Title"] = "Receipt";
@@ -9,7 +9,7 @@
 <br />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Receipt">
+        <form asp-action="Receipt" enctype="multipart/form-data"    >
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -43,9 +43,19 @@
                     <span asp-validation-for="Category" class="text-danger" />
                 </div>
             </div>
-
+            <br />
             <div class="form-group">
-                <input type="submit" value="Receipt" class="btn btn-default" />
+                <div class="col-md-10">
+                    <div class=" form-control-static">
+                    <p>Upload one or more files using this form:</p>
+                    <input type="file" name="ImageFile" multiple />
+                    </div>
+                </div>
+            </div>
+     
+            <br />
+            <div class="form-group-lg">
+                <input type="submit" value="Create Receipt" class="btn btn-group" />
             </div>
         </form>
     </div>

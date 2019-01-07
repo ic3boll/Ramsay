@@ -66,15 +66,14 @@ namespace Ramsay.Controllers
         }
        
         [HttpPost]
+        [Route("Register")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             var user = new RamsayUser()
             {
                 Email = model.Email,
                 UserName = model.UserName,
-                Nickname=model.Nickname
-                
-                
+                Nickname=model.Nickname  
             };
 
             var result = this.SignIn.UserManager.CreateAsync(user, model.Password).Result;

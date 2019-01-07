@@ -29,45 +29,25 @@ namespace Ramsay.Controllers
             this.context = dbContext;
         }
 
-     
+
         public IActionResult Index(int? page)
         {
             var receipts = this._receiptsService.allReceipts();
-            var viewModel = new List<ReceiptViewModel>();
+            var viewModel = new List<ReceiptEditViewModel>();
 
             foreach (var item in receipts)
             {
-                var receiptViewModel = this._mapper.Map<ReceiptViewModel>(item);
+                var receiptViewModel = this._mapper.Map<ReceiptEditViewModel>(item);
                 viewModel.Add(receiptViewModel);
             }
             var nextPage = page ?? 1;
-            var pagedViewModels = viewModel.ToPagedList(nextPage,4);
+            var pagedViewModels = viewModel.ToPagedList(nextPage, 8);
 
-           
+
             return View(pagedViewModels);
-       
+
 
         }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

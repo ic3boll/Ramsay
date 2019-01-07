@@ -10,7 +10,7 @@
 <br />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data" >
             <span asp-validation-for="Id" class="text-danger"></span>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -45,7 +45,13 @@
                     <span asp-validation-for="Category" class="text-danger" />
                 </div>
             </div>
-
+            <br />
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Upload one or more files using this form:</p>
+                    <input type="file" name="ImageFile" multiple />
+                </div>
+            </div>   
             <div class="form-group">
                 <input type="submit" value="Update Receipt" class="btn btn-default" />
             </div>

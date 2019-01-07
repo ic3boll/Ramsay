@@ -4,6 +4,7 @@
 }
 <h1>Receipt: </h1>
 <ul>
+
     @foreach (var item in Model)
     {
         <div class="row">
@@ -13,7 +14,7 @@
                 <h5>Ingredients: @item.Ingredients</h5>
                 <h5>Preparation: @item.Preparation</h5>
                 <h5>Description: @item.Description</h5>
-                        
+
             </div>
         </div>
     }

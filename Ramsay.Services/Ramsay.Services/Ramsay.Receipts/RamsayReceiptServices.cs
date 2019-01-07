@@ -1,5 +1,6 @@
 ﻿using Ramsay.Data;
 using Ramsay.Models;
+using Ramsay.Models.Enums;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,8 +35,10 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts
 
         public IQueryable<Receipt> GetReceiptId(int id)
         {
-            return this.All().OrderBy(n => n.Id==id);
+            return this.allReceiptsById().Where(n => n.Id == id);
         }
+
+   
 
 
 

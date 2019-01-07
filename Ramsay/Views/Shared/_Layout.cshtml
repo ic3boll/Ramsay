@@ -17,32 +17,28 @@
     </environment>
 </head>
 <body>
-    <button type"btn" class="btn btn-default" aria-label="Left Align"
-            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-            </button>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+        <div class="container container-fluid">
+            <div class="dropdown left navbar-header">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cattegory
                 </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <ul><a asp-area="" asp-controller="ReceiptCategory" asp-action="BreakFast">BreakFast</a></ul>
+                    <ul><a asp-area="" asp-controller="ReceiptCategory" asp-action="Brunch">Brunch</a></ul>
+                    <ul><a asp-area="" asp-controller="ReceiptCategory" asp-action="Lunch">Lunch</a></ul>
+                    <ul><a asp-area="" asp-controller="ReceiptCategory" asp-action="Dinner">Dinner</a></ul>
+                    <ul><a asp-area="" asp-controller="ReceiptCategory" asp-action="Dessert">Dessert</a></ul>
+                </div>
+            </div>
+         
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Ramsay</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
+
+            <partial name="_LoginPartial" />
+
         </div>
     </nav>
-
+    
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
