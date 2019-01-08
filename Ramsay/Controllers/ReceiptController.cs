@@ -17,21 +17,16 @@ namespace Ramsay.Controllers
     {
         private readonly UserManager<RamsayUser> _userManager;
         private readonly RamsayDbContext _dbContext;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly RamsayUserRoles _ramsayUserRoles;
         private readonly IImageUploader _imageUploader;
 
         public ReceiptController(
-            RoleManager<IdentityRole> roleManager,
+      
         UserManager<RamsayUser> userManager,
             RamsayDbContext dbContext,
-            RamsayUserRoles ramsayUserRoles,
             IImageUploader imageUploader)
         {
             _userManager = userManager;
             _dbContext = dbContext;
-            _roleManager = roleManager;
-            _ramsayUserRoles = ramsayUserRoles;
             _imageUploader = imageUploader;
         }
         //      /Create-Receipts
@@ -45,13 +40,9 @@ namespace Ramsay.Controllers
         //Create Receipts
         public async Task<IActionResult> Receipt(ReceiptBindingModel receiptViewModel)
         {
-    
-
-            var user = await _userManager.GetUserAsync(User);
-          
+            var user = await _userManager.GetUserAsync(User); 
             var imageUri = _imageUploader.ImageUpload(receiptViewModel.ImageFile.OpenReadStream());
-         
-                
+
                     var receipt = new Receipt()
                     {
                         Name = receiptViewModel.Name,
@@ -61,18 +52,10 @@ namespace Ramsay.Controllers
                         Description = receiptViewModel.Description,
                         User = user,
                         Image= imageUri
-
                     };
-                    _dbContext.Add(receipt);
+                    _dbContext.Add(receipt);    
                     _dbContext.SaveChanges();
                     return this.RedirectToAction("Userr", "User");
-                
-               
-                
-
-
-
-                return this.RedirectToAction("Userr", "User");
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,9 +31,9 @@ namespace Ramsay.Controllers
         }
 
 
-        public IActionResult Index(int? page)
+        public async Task<IActionResult> Index(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
 
             foreach (var item in receipts)

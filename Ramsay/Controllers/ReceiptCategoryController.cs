@@ -17,7 +17,7 @@ using X.PagedList;
 
 namespace Ramsay.Controllers
 {
-
+        [Route("Category/[action]")]
     public class ReceiptCategoryController : Controller
     {
         private readonly RamsayReceiptServices _receiptsService;
@@ -34,7 +34,7 @@ namespace Ramsay.Controllers
 
         public async Task<IActionResult> BreakFast(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
             foreach (var item in receipts)
             {
@@ -54,7 +54,7 @@ namespace Ramsay.Controllers
 
         public async Task<IActionResult> Brunch(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
             foreach (var item in receipts)
             {
@@ -74,7 +74,7 @@ namespace Ramsay.Controllers
 
         public async Task<IActionResult> Dessert(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
             foreach (var item in receipts)
             {
@@ -94,7 +94,7 @@ namespace Ramsay.Controllers
 
         public async Task<IActionResult> Dinner(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
             foreach (var item in receipts)
             {
@@ -114,7 +114,7 @@ namespace Ramsay.Controllers
 
         public async Task<IActionResult> Lunch(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
             foreach (var item in receipts)
             {

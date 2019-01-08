@@ -10,16 +10,7 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts
 {
     interface IRamsayReceiptsServices
     {
-         IQueryable<Receipt> All();
-
-     
-
-         IQueryable<Receipt> allReceipts();
-
-         IQueryable<Receipt> allReceiptsById();
-
-        IQueryable<Receipt> GetReceiptId(int id);
-
-
+         Task<IQueryable<Receipt>> All();
+        Task<IQueryable<Receipt>> allReceipts();
     }
 }

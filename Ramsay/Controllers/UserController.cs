@@ -17,7 +17,6 @@ namespace Ramsay.Controllers
     {
         
         private readonly RamsayReceiptServices _receiptsService;
-    
         private readonly IMapper _mapper;
         private SignInManager<RamsayUser> _SignIn;
 
@@ -37,12 +36,9 @@ namespace Ramsay.Controllers
         [Route("User")]
         public async Task<IActionResult> Userr(int? page)
         {
-            var receipts = this._receiptsService.allReceipts();
-           
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
-
             var userId = _SignIn.UserManager.GetUserId(User);
-
            
             foreach (var item in receipts)
             {
@@ -54,8 +50,6 @@ namespace Ramsay.Controllers
             }
             var nextPage = page ?? 1;
             var pagedViewModels = viewModel.ToPagedList(nextPage, 4);
-
-
             return View(pagedViewModels);
         }
     }

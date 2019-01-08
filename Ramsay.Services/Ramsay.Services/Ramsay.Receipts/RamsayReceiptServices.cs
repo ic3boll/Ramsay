@@ -20,30 +20,14 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts
         
         }
 
-        public IQueryable<Receipt> All()=> this._context.Receipts;
+        public async Task<IQueryable<Receipt>> All() => this._context.Receipts;
         
 
-        public IQueryable<Receipt> allReceipts()
+        public async Task<IQueryable<Receipt>> allReceipts()
         {
-           return this.All();
+           return await this.All();
         }
 
-        public IQueryable<Receipt>allReceiptsById()
-        {
-            return this.All().OrderBy(n => n.Id);
-        }
-
-        public IQueryable<Receipt> GetReceiptId(int id)
-        {
-            return this.allReceiptsById().Where(n => n.Id == id);
-        }
-
-   
-
-
-
-
-        // return this.All().OrderBy(n=>n.Name).Where(n=>n.Id ==_data.UserById._data)
 
     }
 }

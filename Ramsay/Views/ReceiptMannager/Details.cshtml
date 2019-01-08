@@ -7,15 +7,17 @@
 
     @foreach (var item in Model)
     {
-        <div class="row">
-            <div class="col-md-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail ">
+                <img src="@item.Image" alt="...">
                 <h4>Name: @item.Name</h4>
                 <h5>Description: @item.Description</h5>
                 <h5>Ingredients: @item.Ingredients</h5>
                 <h5>Preparation: @item.Preparation</h5>
                 <h5>Description: @item.Description</h5>
-
             </div>
         </div>
-    }
+        </div>
+        }
 </ul>

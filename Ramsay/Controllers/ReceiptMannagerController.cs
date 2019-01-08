@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ramsay.Controllers
 {
+
     public class ReceiptMannagerController : Controller
     {
         private readonly UserManager<RamsayUser> _userManager;
@@ -43,7 +44,7 @@ namespace Ramsay.Controllers
         {
             TempData["id"] = id;
             var receiptUserId =_userManager.GetUserId(User);
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             foreach (var item in receipts)
             {
                 if(item.UserId == receiptUserId && item.Id==id)
@@ -62,7 +63,7 @@ namespace Ramsay.Controllers
         {
             var receiptUserId = _userManager.GetUserId(User);
             var user = await _userManager.GetUserAsync(User);
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var idCk = TempData["id"];
             var id = Convert.ToInt32(idCk);
             var viewModel = new List<ReceiptEditViewModel>();
@@ -95,7 +96,7 @@ namespace Ramsay.Controllers
         [Route("Details")]
         public async Task<IActionResult> Details(int id)
         {
-            var receipts = this._receiptsService.allReceipts();
+            var receipts = await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptViewModel>();
             foreach (var item in receipts)
             {
