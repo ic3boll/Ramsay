@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Ramsay.Data;
 using Ramsay.Models;
-using Ramsay.Services;
+using Ramsay.Services.Ramsay.Services.Ramsay.Images.Contracts;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
 using Ramsay.ViewModels;
+using Ramsay.ViewModels.Comment;
 using Ramsay.ViewModels.Receipt;
 using System;
 using System.Collections.Generic;
@@ -37,7 +39,33 @@ namespace Ramsay.Controllers
             _mapper = mapper;
             _imageUploader = imageUploader;
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Comment([FromBody]CommentCreateViewModel commentCreateViewModel)
+        {
+            var userId = _userManager.GetUserId(User);
+            var userName = this._userManager.GetUserName(User);
+            await _receiptsService.CreateComment(userId, commentCreateViewModel.ReceiptId,commentCreateViewModel.Text);
+    
+            var commentViewModel = new Comments
+            {
+                ReceiptId = commentCreateViewModel.ReceiptId,
+                Text = commentCreateViewModel.Text,
+                UserId = userId
+            };
+            var receiptViewModel = new CommentCreateViewModel
+            {
+               ReceiptId = commentCreateViewModel.ReceiptId,
+               Text=commentCreateViewModel.Text,
+               UserId=userId,
+               userName=userName
+               
+            };
+          
+         
+           _dbContext.SaveChanges();
+            var jsonCommentViewModel = JsonConvert.SerializeObject(receiptViewModel);
+            return Ok(jsonCommentViewModel);
+        }
         [Authorize]
         [Route("Edit")]
         public async Task<IActionResult> Edit(int id)
@@ -61,6 +89,7 @@ namespace Ramsay.Controllers
         [Route("Edit")]
         public async Task<IActionResult> Edit(ReceiptBindingModel receiptViewModel)
         {
+         
             var receiptUserId = _userManager.GetUserId(User);
             var user = await _userManager.GetUserAsync(User);
             var receipts = await this._receiptsService.allReceipts();
@@ -96,19 +125,49 @@ namespace Ramsay.Controllers
         [Route("Details")]
         public async Task<IActionResult> Details(int id)
         {
+            var users = this._dbContext.Users.ToList();
             var receipts = await this._receiptsService.allReceipts();
-            var viewModel = new List<ReceiptViewModel>();
+            var userId = this._userManager.GetUserId(User);
+            var userName = this._userManager.GetUserName(User);
+            var coments = await this._receiptsService.Comments();
+            var viewModel = new ReceiptViewModel();
             foreach (var item in receipts)
             {
                 if (item.Id == id )
                 {
-                    var receiptViewModel = this._mapper.Map<ReceiptViewModel>(item);
-                    viewModel.Add(receiptViewModel);
+                    var AviewModel = new ReceiptViewModel
+                    {
+                        Id = item.Id,
+                       Name=item.Name,
+                       Category=item.Category,
+                       Description=item.Description,
+                       Image=item.Image,
+                       Ingredients=item.Ingredients,
+                       Preparation=item.Preparation,
+                       
+                      
+                    };
+                    var dsa = new List<CommentViewModel>();
+                    
+                    foreach (var itema in coments)
+                    {
+                       
+                        if ( itema.ReceiptId==id)
+                        {
+                            var user=users.Where(u=>u.Id==itema.UserId).FirstOrDefault();
+                            var asd = new CommentViewModel();
+                            asd.User = user.UserName;
+                            asd.Text = itema.Text;
+                            dsa.Add(asd);
+                        }
+                    }
+                    AviewModel.Comments = dsa;
+                    AviewModel.userName = userName;
+                    viewModel = AviewModel;
                 }
             }
             return View(viewModel);
         }
-   
         [Authorize]
         public ActionResult Delete(int id)
         {

@@ -17,6 +17,8 @@ namespace Ramsay.Data
         }
         
         public DbSet<Receipt> Receipts { get; set; }
+
+        public DbSet<Comments> Comments { get; set; }
        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

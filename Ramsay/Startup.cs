@@ -12,7 +12,8 @@ using Ramsay.Middlewares.MiddlewareExtensions;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
 using AutoMapper;
 using Ramsay.Services.Ramsay.Services.Ramsay.UserRole;
-using Ramsay.Services;
+using Ramsay.Services.Ramsay.Services.Ramsay.Images.Contracts;
+using Ramsay.Services.Ramsay.Services.Ramsay.Images;
 
 namespace Ramsay
 {

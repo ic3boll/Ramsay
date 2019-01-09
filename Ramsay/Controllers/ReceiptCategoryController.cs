@@ -20,18 +20,21 @@ namespace Ramsay.Controllers
         [Route("Category/[action]")]
     public class ReceiptCategoryController : Controller
     {
+       
         private readonly RamsayReceiptServices _receiptsService;
         private readonly IMapper _mapper;
 
         public ReceiptCategoryController(
+         
             IMapper mapper,
             RamsayReceiptServices receiptsService
            )
         {
+          
             _receiptsService = receiptsService;
             _mapper = mapper;
         }
-
+       
         public async Task<IActionResult> BreakFast(int? page)
         {
             var receipts = await this._receiptsService.allReceipts();

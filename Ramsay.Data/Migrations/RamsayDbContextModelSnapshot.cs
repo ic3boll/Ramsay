@@ -129,31 +129,25 @@ namespace Ramsay.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Ramsay.Model.Receipt", b =>
+            modelBuilder.Entity("Ramsay.Models.Comments", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Category");
+                    b.Property<int>("ReceiptId");
 
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Image");
-
-                    b.Property<string>("Ingredients");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Preparation");
+                    b.Property<string>("Text");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ReceiptId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Receipts");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Ramsay.Models.RamsayUser", b =>
@@ -209,6 +203,33 @@ namespace Ramsay.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Ramsay.Models.Receipt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Category");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Image");
+
+                    b.Property<string>("Ingredients");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Preparation");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Receipts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -254,7 +275,19 @@ namespace Ramsay.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Ramsay.Model.Receipt", b =>
+            modelBuilder.Entity("Ramsay.Models.Comments", b =>
+                {
+                    b.HasOne("Ramsay.Models.Receipt", "Receipt")
+                        .WithMany("Comments")
+                        .HasForeignKey("ReceiptId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Ramsay.Models.RamsayUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Ramsay.Models.Receipt", b =>
                 {
                     b.HasOne("Ramsay.Models.RamsayUser", "User")
                         .WithMany()

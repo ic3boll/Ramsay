@@ -1,23 +1,130 @@
-﻿
+﻿@model Ramsay.ViewModels.Receipt.ReceiptViewModel
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Receipt: </h1>
-<ul>
+<div class="col-sm-6 col-md-3">
+    <div class="thumbnail">
+        <img src="@Model.Image" alt="...">
+        <label>Name: @Model.Name</label>
+        <br />
+    </div>
+</div>
 
-    @foreach (var item in Model)
-    {
-    <div class="row">
-        <div class="col-md-4">
-            <div class="thumbnail ">
-                <img src="@item.Image" alt="...">
-                <h4>Name: @item.Name</h4>
-                <h5>Description: @item.Description</h5>
-                <h5>Ingredients: @item.Ingredients</h5>
-                <h5>Preparation: @item.Preparation</h5>
-                <h5>Description: @item.Description</h5>
+
+
+<div class="mx-3 my-2">
+    <a class=" text-dark" data-toggle="collapse" href="#commentSection" aria-expanded="false" aria-controls="collapseExample">
+        <h5 id="commentCount">Comments:  </h5>
+    </a>
+    @Model.Comments.Count
+    <div class="border-bottom mr-4"></div>
+</div>
+
+@if (Model.userName == null)
+{
+    <div id="commentSection" class="collapse  my-3">
+        <div class="mx-2 my-2">
+            <div id="commentsContainer" class="  mx-3">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div id="postedComment">
+                        <div class="d-flex align-items-stretch col-sm-12 offset-sm-0 ">
+                            Profile- @comment.User
+                            <div class="thumbnail">
+                                <div class="mx-5">
+                                    <p> @comment.Text </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
+    </div>
+
+}
+else
+{
+    <div id="commentSection" class="collapse  my-3">
+        <div class="mx-2 my-2">
+            <div id="commentsContainer" class="  mx-3">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div id="postedComment">
+                        <div class="d-flex align-items-stretch col-sm-12 offset-sm-0 ">
+                            Profile- @comment.User
+                            <div class="thumbnail">
+                                <div class="mx-5">
+                                    <p> @comment.Text </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <form id="commentForm" action="/ReceiptMannager/Comment/@Model.Id" method="post">
+                    <div class="form-group  mx-4 my-2">
+                        <label for="comment" class="control-label form-label"> Write Comment: </label>
+                        <textarea name="comment" class="form-control form-input form-input-center"> </textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mx-4 my-2 ">
+                        <button type="submit" class="btn btn-default btn-brand btn-brand-big">&nbsp;Comment&nbsp;</button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
+}
+
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+        function escapeHtml(text) {
+            'use strict';
+            return text.replace(/[\"&<>]/g, function (a) {
+                return { '"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;' }[a];
+            });
         }
-</ul>
+            $("#commentForm").submit(function (event) {
+
+                var form = $('#commentForm');
+                var commentValue = form.find("textarea[name='comment']").val();
+                var commentCountString = $('#commentCount').text();
+                var receiptId =@Model.Id;
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+                $.ajax({
+                    url: "/ReceiptMannager/Comment/" +@Model.Id,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("RequestVerificationToken",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: JSON.stringify({ Text: commentValue, receiptId: receiptId }),
+                    success: function (result) {
+                        console.log(result)
+                        var obj = jQuery.parseJSON(result);
+                        const Item = ({ commentText ,userName }) => `
+                           <div id="postedComment"> 
+                                 <div class="mt-2">
+                                     <h5 id="profileName">${userName}</h5>
+                                 </div>
+                             <div class="mx-5"><p id="commentText">${commentText}</p></div>
+                             <div class="border-bottom mx-4"></div>
+                         </div>
+                       `;
+                        $("#commentsContainer").append(Item({
+                            userName: obj.userName,
+                            commentText: escapeHtml(obj.Text)
+                        }))
+                    }
+                });
+
+                return false;
+            });
+        
+    </script>
+    }
+

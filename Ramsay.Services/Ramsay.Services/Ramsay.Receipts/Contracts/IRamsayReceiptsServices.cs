@@ -1,16 +1,20 @@
 ﻿using Ramsay.Models;
-using Ramsay.Models.Enums;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts
 {
-    interface IRamsayReceiptsServices
+   public interface IRamsayReceiptsServices
     {
          Task<IQueryable<Receipt>> All();
         Task<IQueryable<Receipt>> allReceipts();
+
+        Task<IQueryable<Comments>> Allcomments();
+        Task<IQueryable<Comments>> Comments();      
+        Task<IQueryable<Comments>> AllcommentsId(int id);
+     
+        Task CreateComment(string userId, int receiptId, string text);
     }
 }

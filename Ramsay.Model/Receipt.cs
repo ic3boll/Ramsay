@@ -2,6 +2,7 @@
 using Ramsay.Models;
 using Ramsay.Models.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Ramsay.Models
 {
@@ -24,6 +25,8 @@ namespace Ramsay.Models
         public string UserId { get; set; }
 
         public RamsayUser User { get; set; }
+
+        public List<Comments> Comments { get; set; } = new List<Comments>();
 
     }
 }

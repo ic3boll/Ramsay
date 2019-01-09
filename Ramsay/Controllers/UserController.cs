@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Ramsay.Data;
 using Ramsay.Models;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts;
 using Ramsay.ViewModels.Receipt;

@@ -11,6 +11,7 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole
     {
 
         private RamsayDbContext _context;
+        
         private readonly UserManager<RamsayUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
@@ -31,8 +32,15 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole
 
         public IQueryable<IdentityRole> roleById()
         {
+         
             return this.allRoles().OrderBy(id => id.Id);
         }
 
+      
+
+        Task<IQueryable<IdentityUser>> IRamsayUserRoles.users()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -15,8 +15,7 @@ namespace Ramsay.Controllers
     public class HomeController : Controller
     {
 
-        private RamsayDbContext context;
-
+        private RamsayDbContext _context;
         private readonly RamsayReceiptServices _receiptsService;
         private readonly IMapper _mapper;
 
@@ -27,13 +26,15 @@ namespace Ramsay.Controllers
         {
             this._mapper = mapper;
             this._receiptsService = receiptServices;
-            this.context = dbContext;
+            this._context = dbContext;
         }
 
 
         public async Task<IActionResult> Index(int? page)
         {
-            var receipts = await this._receiptsService.allReceipts();
+            var users = await this._context.Users.ToListAsync();
+
+            var receipts =await this._receiptsService.allReceipts();
             var viewModel = new List<ReceiptEditViewModel>();
 
             foreach (var item in receipts)

@@ -7,6 +7,7 @@ using Ramsay.Data;
 
 using Ramsay.Models;
 using Ramsay.Services;
+using Ramsay.Services.Ramsay.Services.Ramsay.Images.Contracts;
 using Ramsay.Services.Ramsay.Services.Ramsay.UserRole;
 using Ramsay.ViewModels;
 
