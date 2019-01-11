@@ -1,0 +1,15 @@
+﻿@model Ramsay.Areas.ViewModels.AccountManageViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Greetings to our CookParadise @Model.Username</h1>
+
+<a asp-area="Identity" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-primary">Change Password</a> <br /><br />
+
+<a asp-area="Identity" asp-controller="Manage" asp-action="CreateRoles" class="btn btn-primary">CreateRoles</a> <br /><br />
+
+<a asp-area="Identity" asp-controller="Manage" asp-action="SetRoles" class="btn btn-primary">SetRoles</a>
+
+
+

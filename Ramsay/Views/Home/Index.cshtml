@@ -9,17 +9,19 @@
 }
  
 <h1>Receipts: </h1>
-<div class="row">
+<div class="container">
+    <div class="row">
         @foreach (var item in Model)
         {
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="@item.Image" alt="...">
-                            <label>Name: @item.Name</label>
-                            <br />
-                                <a asp-controller="ReceiptMannager" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                        </div>
-                    </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="@item.Image" alt="...">
+                    <label>Name: @item.Name</label>
+                    <br />
+                    <a asp-controller="ReceiptMannager" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                </div>
+            </div>
         }
+    </div>
 </div>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))

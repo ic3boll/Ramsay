@@ -135,7 +135,7 @@ namespace Ramsay.Controllers
             {
                 if (item.Id == id )
                 {
-                    var AviewModel = new ReceiptViewModel
+                    var ReceiptViewModel = new ReceiptViewModel
                     {
                         Id = item.Id,
                        Name=item.Name,
@@ -147,23 +147,23 @@ namespace Ramsay.Controllers
                        
                       
                     };
-                    var dsa = new List<CommentViewModel>();
+                    var comments = new List<CommentViewModel>();
                     
-                    foreach (var itema in coments)
+                    foreach (var c in coments)
                     {
                        
-                        if ( itema.ReceiptId==id)
+                        if ( c.ReceiptId==id)
                         {
-                            var user=users.Where(u=>u.Id==itema.UserId).FirstOrDefault();
-                            var asd = new CommentViewModel();
-                            asd.User = user.UserName;
-                            asd.Text = itema.Text;
-                            dsa.Add(asd);
+                            var user=users.Where(u=>u.Id==c.UserId).FirstOrDefault();
+                            var cvm = new CommentViewModel();
+                            cvm.User = user.UserName;
+                            cvm.Text = c.Text;
+                            comments.Add(cvm);
                         }
                     }
-                    AviewModel.Comments = dsa;
-                    AviewModel.userName = userName;
-                    viewModel = AviewModel;
+                    ReceiptViewModel.Comments = comments;
+                    ReceiptViewModel.userName = userName;
+                    viewModel = ReceiptViewModel;
                 }
             }
             return View(viewModel);

@@ -87,7 +87,10 @@ namespace Ramsay
             app.UseMvc(routes =>
             {
 
-                 
+
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                    name: "name",
                    template: "{controller=Home}/{action=Index}/{string?}");
@@ -95,6 +98,9 @@ namespace Ramsay
                 routes.MapRoute(
                   name: "default",
                   template: "{controller=Home}/{action=Index}/{id?}");
+
+               
+
                 routes.MapRoute(
                      name: "category",
                      template: "{controller=ReceiptCategory}/{action}/{string}"
