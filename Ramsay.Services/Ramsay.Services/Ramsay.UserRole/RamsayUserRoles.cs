@@ -10,14 +10,14 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.UserRole
     public class RamsayUserRoles : IRamsayUserRoles
     {
 
-        private RamsayDbContext _context;
+        private readonly RamsayDbContext _context;
         
-        private readonly UserManager<RamsayUser> _userManager;
+        private readonly UserManager<RamsayUsers> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
 
         public RamsayUserRoles(RamsayDbContext context,
-            UserManager<RamsayUser> userManager,
+            UserManager<RamsayUsers> userManager,
             RoleManager<IdentityRole> roleManager
             )
         {

@@ -27,7 +27,7 @@ namespace Ramsay.Controllers
         public ReceiptCategoryController(
          
             IMapper mapper,
-            RamsayReceiptServices receiptsService
+           RamsayReceiptServices receiptsService
            )
         {
           

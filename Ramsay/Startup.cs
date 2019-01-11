@@ -14,6 +14,8 @@ using AutoMapper;
 using Ramsay.Services.Ramsay.Services.Ramsay.UserRole;
 using Ramsay.Services.Ramsay.Services.Ramsay.Images.Contracts;
 using Ramsay.Services.Ramsay.Services.Ramsay.Images;
+using Ramsay.Models.Interfaces.Repositories;
+using Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts;
 
 namespace Ramsay
 {
@@ -55,8 +57,11 @@ namespace Ramsay
                  
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<RamsayDbContext>();
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<RamsayReceiptServices>();
+            services.AddScoped<RamsayReceiptCountServices>();
             services.AddScoped<IImageUploader,ImageUploader>();
+            services.AddScoped<RamsayUsers>();
             services.AddScoped<RamsayUserRoles>();
             services.AddTransient<RamsayReceiptServices>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

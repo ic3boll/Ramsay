@@ -44,19 +44,22 @@ namespace Ramsay.Areas.Identity.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var getUser = await this._userManager.GetUserAsync(User);
-
-            var user = new AccountManageViewModel
+            if (User.IsInRole("Administrator"))
             {
-                Username = getUser.UserName,
-                Id = getUser.Id
+                var getUser = await this._userManager.GetUserAsync(User);
 
-            };
-            var AccountViewModel = new AccountManageViewModel();
+                var user = new AccountManageViewModel
+                {
+                    Username = getUser.UserName,
+                    Id = getUser.Id
 
-            AccountViewModel = user;
+                };
+                var AccountViewModel = new AccountManageViewModel();
 
-            return View(AccountViewModel);
+                AccountViewModel = user;
+                return View(AccountViewModel);
+            }
+            return this.RedirectToAction("Userr", "User");
         }
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
@@ -98,8 +101,12 @@ namespace Ramsay.Areas.Identity.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateRoles()
         {
-
-            return View();
+           
+            if (User.IsInRole("Administrator"))
+            {
+                return View();
+            }
+            return this.RedirectToAction("Userr", "User");
         }
 
         [HttpPost]

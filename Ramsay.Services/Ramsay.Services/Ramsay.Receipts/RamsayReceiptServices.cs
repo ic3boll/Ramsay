@@ -1,6 +1,7 @@
 ﻿using Ramsay.Data;
 using Ramsay.Models;
 using Ramsay.Models.Enums;
+using Ramsay.Models.Interfaces.Repositories;
 using Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,19 +9,20 @@ using System.Threading.Tasks;
 namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts
 {
     public class RamsayReceiptServices : IRamsayReceiptsServices
-    {
+    {       
+        private readonly  RamsayDbContext _context;
 
-        
-        private  RamsayDbContext _context;
-   
+     
 
         public RamsayReceiptServices(RamsayDbContext context)
+        
         {
             this._context = context;
         
         }
 
         public async Task<IQueryable<Receipt>> All() => this._context.Receipts;
+       
         public async Task<IQueryable<Receipt>> allReceipts()
         {
             return await this.All();
@@ -46,5 +48,10 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts
             await _context.Comments.AddAsync(coment);
         }
 
+        public int getCount()
+        {
+            return this._context.Receipts.Count();
+         //   return this._receiptRepository.All().Count();
+        }
     }
 }

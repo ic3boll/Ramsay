@@ -10,7 +10,7 @@ namespace Ramsay.Services.Ramsay.Services.Ramsay.Receipts.Contracts
     {
          Task<IQueryable<Receipt>> All();
         Task<IQueryable<Receipt>> allReceipts();
-
+        int getCount();
         Task<IQueryable<Comments>> Allcomments();
         Task<IQueryable<Comments>> Comments();      
         Task<IQueryable<Comments>> AllcommentsId(int id);
